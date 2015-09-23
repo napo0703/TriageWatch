@@ -1,0 +1,104 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0099ff"
+    tools:context=".MainActivity"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <TextView
+        android:text="@string/hello_comment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#ffffff"
+        android:gravity="center"
+        android:textSize="28sp"
+        android:layout_weight="5"/>
+
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="#ffffff"
+        android:gravity="center"
+        android:layout_weight="2">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textColor="#ffaa00"
+            android:textSize="60sp"
+            android:padding="4dp"
+            android:text="☆"
+            android:id="@+id/activity_main_star_1"
+            android:tag="failure"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textColor="#ffaa00"
+            android:textSize="60sp"
+            android:padding="4dp"
+            android:text="☆"
+            android:id="@+id/activity_main_star_2"
+            android:tag="bad"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textColor="#ffaa00"
+            android:textSize="60sp"
+            android:padding="4dp"
+            android:text="☆"
+            android:id="@+id/activity_main_star_3"
+            android:tag="fair"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textColor="#ffaa00"
+            android:textSize="60sp"
+            android:padding="4dp"
+            android:text="☆"
+            android:id="@+id/activity_main_star_4"
+            android:tag="good"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textColor="#ffaa00"
+            android:textSize="60sp"
+            android:padding="4dp"
+            android:text="☆"
+            android:id="@+id/activity_main_star_5"
+            android:tag="excellent"/>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="3"
+        android:gravity="center">
+
+        <Button
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:id="@+id/activity_main_next_button"
+            android:textSize="24sp"
+            android:background="@drawable/round_button"
+            android:textColor="#ffffff"
+            android:text="次へ"
+            android:visibility="invisible"/>
+
+    </RelativeLayout>
+
+</LinearLayout>

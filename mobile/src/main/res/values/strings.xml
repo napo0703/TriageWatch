@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Triage</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_comment">おはようございます！\n今日の調子はどうですか？</string>
+</resources>
