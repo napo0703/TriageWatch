@@ -1,15 +1,10 @@
 package moe.napo.triage
 
-import android.app.PendingIntent
-import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.support.v4.app.NotificationManagerCompat
-import android.support.v4.app.NotificationCompat
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.view.TextureView
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
@@ -73,7 +68,7 @@ public class MainActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu)
+        menuInflater.inflate(R.menu.menu_main, menu)
         return true
     }
 
@@ -81,7 +76,7 @@ public class MainActivity : AppCompatActivity() {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        val id = item.getItemId()
+        val id = item.itemId
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
@@ -92,7 +87,7 @@ public class MainActivity : AppCompatActivity() {
     }
 
     fun onItemClick(view: TextView) {
-        mHealthPoint =  when (view.getTag()) {
+        mHealthPoint =  when (view.tag) {
             "failure" -> 0
             "bad" -> 25
             "fair" -> 50
@@ -102,57 +97,57 @@ public class MainActivity : AppCompatActivity() {
         }
         when (mHealthPoint) {
             0 -> {
-                mRateButton1!!.setText("★")
-                mRateButton2!!.setText("☆")
-                mRateButton3!!.setText("☆")
-                mRateButton4!!.setText("☆")
-                mRateButton5!!.setText("☆")
+                mRateButton1!!.text = "★"
+                mRateButton2!!.text = "☆"
+                mRateButton3!!.text = "☆"
+                mRateButton4!!.text = "☆"
+                mRateButton5!!.text = "☆"
             }
             25 -> {
-                mRateButton1!!.setText("★")
-                mRateButton2!!.setText("★")
-                mRateButton3!!.setText("☆")
-                mRateButton4!!.setText("☆")
-                mRateButton5!!.setText("☆")
+                mRateButton1!!.text = "★"
+                mRateButton2!!.text = "★"
+                mRateButton3!!.text = "☆"
+                mRateButton4!!.text = "☆"
+                mRateButton5!!.text = "☆"
             }
             50 -> {
-                mRateButton1!!.setText("★")
-                mRateButton2!!.setText("★")
-                mRateButton3!!.setText("★")
-                mRateButton4!!.setText("☆")
-                mRateButton5!!.setText("☆")
+                mRateButton1!!.text = "★"
+                mRateButton2!!.text = "★"
+                mRateButton3!!.text = "★"
+                mRateButton4!!.text = "☆"
+                mRateButton5!!.text = "☆"
             }
             75 -> {
-                mRateButton1!!.setText("★")
-                mRateButton2!!.setText("★")
-                mRateButton3!!.setText("★")
-                mRateButton4!!.setText("★")
-                mRateButton5!!.setText("☆")
+                mRateButton1!!.text = "★"
+                mRateButton2!!.text = "★"
+                mRateButton3!!.text = "★"
+                mRateButton4!!.text = "★"
+                mRateButton5!!.text = "☆"
             }
             100 -> {
-                mRateButton1!!.setText("★")
-                mRateButton2!!.setText("★")
-                mRateButton3!!.setText("★")
-                mRateButton4!!.setText("★")
-                mRateButton5!!.setText("★")
+                mRateButton1!!.text = "★"
+                mRateButton2!!.text = "★"
+                mRateButton3!!.text = "★"
+                mRateButton4!!.text = "★"
+                mRateButton5!!.text = "★"
             }
         }
-        mNextButton!!.setVisibility(View.VISIBLE)
+        mNextButton!!.visibility = View.VISIBLE
     }
 
     private fun sendNotification(score: Int){
-        if (mGoogleApiClient!!.isConnected()) {
+        if (mGoogleApiClient!!.isConnected) {
             val dataMapRequest = PutDataMapRequest.create(Constants.NOTIFICATION_PATH)
-            dataMapRequest.getDataMap().putString(Constants.NOTIFICATION_TITLE, "Triage")
-            dataMapRequest.getDataMap().putString(Constants.NOTIFICATION_CONTENT, "今日の体調を測定しましょう！")
-            dataMapRequest.getDataMap().putInt(Constants.NOTIFICATION_SCORE, score)
+            dataMapRequest.dataMap.putString(Constants.NOTIFICATION_TITLE, "Triage")
+            dataMapRequest.dataMap.putString(Constants.NOTIFICATION_CONTENT, "今日の体調を測定しましょう！")
+            dataMapRequest.dataMap.putInt(Constants.NOTIFICATION_SCORE, score)
             // Set timestamp so that it always trigger onDataChanged event
-            dataMapRequest.getDataMap().putLong(Constants.NOTIFICATION_TIME, System.currentTimeMillis())
+            dataMapRequest.dataMap.putLong(Constants.NOTIFICATION_TIME, System.currentTimeMillis())
             val putDataRequest = dataMapRequest.asPutDataRequest()
             val pendingResult = Wearable.DataApi.putDataItem(mGoogleApiClient, putDataRequest)
             pendingResult.setResultCallback(object : ResultCallback<DataApi.DataItemResult> {
                 override fun onResult(dataItemResult: DataApi.DataItemResult) {
-                    Log.d(TAG, "Send result:" + dataItemResult.getStatus().isSuccess())
+                    Log.d(TAG, "Send result:" + dataItemResult.status.isSuccess)
                 }
             })
         } else {

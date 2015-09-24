@@ -26,8 +26,8 @@ public class MainWearActivity : WearableActivity(), SensorEventListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         // Keep the Wear screen always on (for testing only!)
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
-        super<WearableActivity>.onCreate(savedInstanceState)
+        window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+        super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_wear)
         val stub = findViewById(R.id.watch_view_stub) as WatchViewStub
         stub.setOnLayoutInflatedListener(object : WatchViewStub.OnLayoutInflatedListener {
@@ -43,7 +43,6 @@ public class MainWearActivity : WearableActivity(), SensorEventListener {
                 getHeartRate()
             }
         })
-        val intent = getIntent()
         mHealthScore = intent.getIntExtra("score", 0)
     }
 
@@ -72,26 +71,26 @@ public class MainWearActivity : WearableActivity(), SensorEventListener {
     }
 
     override fun onSensorChanged(event: SensorEvent) {
-        if (event.sensor.getType() == Sensor.TYPE_HEART_RATE && event.values[0].toInt() != 0) {
+        if (event.sensor.type == Sensor.TYPE_HEART_RATE && event.values[0].toInt() != 0) {
             val heartRate = event.values[0].toInt()
             val msg = "" + heartRate
-            mTextViewHeart!!.setVisibility(View.VISIBLE)
-            mTextViewHeart!!.setText(msg)
-            mTextViewMeasuring!!.setVisibility(View.VISIBLE)
+            mTextViewHeart!!.visibility = View.VISIBLE
+            mTextViewHeart!!.text = msg
+            mTextViewMeasuring!!.visibility = View.VISIBLE
             Log.d(TAG, msg)
             mHeartRates.add(heartRate)
-        } else if (event.sensor.getType() == Sensor.TYPE_HEART_RATE) {
+        } else if (event.sensor.type == Sensor.TYPE_HEART_RATE) {
             val msg = "" + event.values[0].toInt()
-            mTextViewMeasuring!!.setVisibility(View.INVISIBLE)
-            mTextViewHeart!!.setVisibility(View.INVISIBLE)
+            mTextViewMeasuring!!.visibility = View.INVISIBLE
+            mTextViewHeart!!.visibility = View.INVISIBLE
             Log.d(TAG, msg)
         } else {
-            mTextViewMeasuring!!.setVisibility(View.INVISIBLE)
-            mTextViewHeart!!.setVisibility(View.INVISIBLE)
+            mTextViewMeasuring!!.visibility = View.INVISIBLE
+            mTextViewHeart!!.visibility = View.INVISIBLE
             Log.d(TAG, "Unknown sensor type")
         }
         if (mHeartRates.size() > 10) {
-            mApplyButton!!.setVisibility(View.VISIBLE)
+            mApplyButton!!.visibility = View.VISIBLE
         }
     }
 

@@ -36,12 +36,12 @@ public class NotificationUpdateService : WearableListenerService() {
     override fun onDataChanged(dataEvents: DataEventBuffer?) {
         Log.d(TAG, "onDataChanged")
         for (dataEvent in dataEvents!!) {
-            if (dataEvent.getType() == DataEvent.TYPE_CHANGED) {
-                if (Constants.NOTIFICATION_PATH == dataEvent.getDataItem().getUri().getPath()) {
-                    val dataMapItem = DataMapItem.fromDataItem(dataEvent.getDataItem())
-                    val title = dataMapItem.getDataMap().getString(Constants.NOTIFICATION_TITLE)
-                    val content = dataMapItem.getDataMap().getString(Constants.NOTIFICATION_CONTENT)
-                    mHealthScore = dataMapItem.getDataMap().getInt(Constants.NOTIFICATION_SCORE)
+            if (dataEvent.type == DataEvent.TYPE_CHANGED) {
+                if (Constants.NOTIFICATION_PATH == dataEvent.dataItem.uri.path) {
+                    val dataMapItem = DataMapItem.fromDataItem(dataEvent.dataItem)
+                    val title = dataMapItem.dataMap.getString(Constants.NOTIFICATION_TITLE)
+                    val content = dataMapItem.dataMap.getString(Constants.NOTIFICATION_CONTENT)
+                    mHealthScore = dataMapItem.dataMap.getInt(Constants.NOTIFICATION_SCORE)
                     sendNotification(title, content)
                 }
             }
@@ -52,7 +52,7 @@ public class NotificationUpdateService : WearableListenerService() {
 
         Log.d(TAG, "sendNotification")
         // this intent will open the activity when the user taps the "open" action on the notification
-        val viewIntent = Intent(this, javaClass<MainWearActivity>())
+        val viewIntent = Intent(this, MainWearActivity::class.java)
         viewIntent.putExtra("health_score", mHealthScore)
         Log.d("NUS_HealthScore", "" + mHealthScore)
         Log.d("intent", "" + viewIntent.getIntExtra("health_score", 0))
@@ -97,7 +97,7 @@ public class NotificationUpdateService : WearableListenerService() {
         }
 
         override fun onResult(deleteDataItemsResult: DataApi.DeleteDataItemsResult) {
-            if (!deleteDataItemsResult.getStatus().isSuccess()) {
+            if (!deleteDataItemsResult.status.isSuccess) {
                 Log.e(TAG, "dismissWearableNotification(): failed to delete DataItem")
             }
             mGoogleApiClient.disconnect()
